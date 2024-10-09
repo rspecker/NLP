@@ -2,6 +2,7 @@ import nltk
 from nltk.tokenize import RegexpTokenizer
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
+import pandas as pd
 
 nltk.download('stopwords')
 nltk.download('punkt_tab')
@@ -35,4 +36,19 @@ def preproc(text, lower=True, stopwords=True, lang='english', stemm=True):
     tokens = (stemming(tokens))
 
   return tokens
+
+def create_preprocesssed_dataset(data: pd.DataFrame):
+  column_nr = 0
+  try:
+    column_nr = len(data.columns)
+  except:
+    column_nr = 1
+
+  X = []
+  for row in data.values.tolist():
+    X_row = []
+    for column in range(column_nr):
+      X_row.extend(preproc(row[column]))
+    X.append(X_row)
+  return X
 

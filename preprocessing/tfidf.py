@@ -1,16 +1,6 @@
-from preprocessing.preproc import preproc
+from preprocessing.preproc import create_preprocesssed_dataset
 from sklearn.feature_extraction.text import TfidfVectorizer
 import pandas as pd
-
-
-def create_preprocesssed_dataset(data: pd.DataFrame):
-  X = []
-  for row in data.values.tolist():
-    X_row = []
-    for column in range(len(data.columns)):
-      X_row.extend(preproc(row[column]))
-    X.append(X_row)
-  return X
 
 
 def own_tokenizer(data): # identiy tokenizer
