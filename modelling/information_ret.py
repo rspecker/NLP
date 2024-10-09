@@ -1,32 +1,13 @@
 from sklearn.metrics.pairwise import cosine_similarity
 from preprocessing.preproc import create_preprocesssed_dataset
-from preprocessing.tfidf import create_train_data_tfidf
-from preprocessing.tfidf import query_vectorizer
+from preprocessing.tfidf import create_train_data_tfidf, query_vectorizer, remove_words_test
 import numpy as np
 
 def predict(X_knowledge, Y_knowledge, x_sample):
-  index = -1
-  similarity = 0
-  ctr = 0
   cosineSimilarities = cosine_similarity(x_sample, X_knowledge).flatten()
-  # print(len(cosineSimilarities))
- 
-  # for sim in cosineSimilarities:
-  #   if sim > similarity:
-  #     similarity = sim
-  #     index = ctr
-  #   ctr += 1
 
-  # m = max(cosineSimilarities)
   index = np.argmax(cosineSimilarities)
   return Y_knowledge[index]
-
-def remove_words_test(voc, X_test):
-  X_test_new = []
-  # print(voc)
-  for row in X_test:
-    X_test_new.append([w for w in row if w in voc])
-  return X_test_new
 
 def score(X_knowledge, X_test, Y_knowledge, Y_test):
   correct_ctr = 0
