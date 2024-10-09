@@ -1,8 +1,6 @@
 import pandas as pd
-from sklearn.model_selection import train_test_split
-
 from preprocessing.preproc import preproc
-from preprocessing.tfidf import create_train_df_tfidf
+from preprocessing.tfidf import create_train_data_tfidf
 from utils import create_train_test_sets
 
 if __name__ == "__main__":
@@ -18,4 +16,8 @@ if __name__ == "__main__":
     print("Before preproc: ", df['plot'][0])
     print("After preproc: ", preproc(df['plot'][0]))
 
-    create_train_df_tfidf(df)
+    x_train = create_train_data_tfidf(x_train)
+    x_test = create_train_data_tfidf(x_test)
+
+    y_train = preproc(y_train)
+    y_test = preproc(y_test)
