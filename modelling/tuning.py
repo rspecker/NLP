@@ -27,8 +27,8 @@ def tune_hyperparameters(model, param_grid, X_train, y_train, cv=5,
     best_params = grid_search.best_params_
     best_score = grid_search.best_score_
 
-    logging.INFO(f"Best parameters found for {model.__class__.__name__}: ",
+    logging.info(f"Best parameters found for {model.__class__.__name__}: ",
                  best_params)
-    logging.INFO(f"Best cross-validation score: ", best_score)
+    logging.info(f"Best cross-validation score: ", best_score)
 
     return best_params, best_score
