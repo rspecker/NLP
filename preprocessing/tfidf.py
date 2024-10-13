@@ -20,11 +20,12 @@ def query_vectorizer(data, query):
 def create_train_data_tfidf(data: pd.DataFrame, vectorizer=None) -> tuple[TfidfVectorizer, ...]:
   if vectorizer == None:
     vectorizer = TfidfVectorizer(tokenizer=own_tokenizer, lowercase=False, stop_words=None)
-    X = vectorizer.fit_transform(create_preprocesssed_dataset(data))
+    vectorizer = vectorizer.fit(create_preprocesssed_dataset(data))
+    X = vectorizer.transform(create_preprocesssed_dataset(data))
   else:
     X = create_preprocesssed_dataset(data)
-    X = remove_words_test(vectorizer.vocabulary_.keys())
-    X = vectorizer.transform()
+    X = remove_words_test(vectorizer.vocabulary_.keys(), X)
+    X = vectorizer.transform(X)
     
   return (vectorizer, X)
       
