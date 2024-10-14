@@ -46,7 +46,7 @@ def score(X_knowledge, X_test, Y_knowledge, Y_test):
     ctr += 1
     df.loc[len(df)] = [res[0], y_sample[0]]
   print("accuracy score: ", correct_ctr/len(X_test))
-  df.to_csv('res_IR.csv')
+  df.to_csv('information_retrieval.csv')
 
 
   
