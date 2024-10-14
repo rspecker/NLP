@@ -2,7 +2,7 @@ import numpy as np
 from sentence_transformers import SentenceTransformer
 
 
-def get_sentence_embeddings(sentences: list[str], model: str = "all-MiniLM-L6-v2") -> np.ndarray:
+def create_sentence_embeddings(sentences: list[str], model: str = "all-MiniLM-L6-v2") -> np.ndarray:
     """
     Generates embeddings for a list of sentences using a pre-trained Sentence 
     Transformer model.
