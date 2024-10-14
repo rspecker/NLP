@@ -18,7 +18,7 @@ def compareDistrTestOutput(data):
   label_encoder = LabelEncoder()
 
   data['actual_encoded'] = label_encoder.fit_transform(data['actual'])
-  ddata['predicted_encoded'] = label_encoder.fit_transform(data['predicted'])
+  data['predicted_encoded'] = label_encoder.fit_transform(data['predicted'])
 
 
 
