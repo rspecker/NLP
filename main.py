@@ -11,10 +11,6 @@ def informatioon_retrieval(x_train, x_test, y_train, y_test):
     
 
 
-
-
-
-
 if __name__ == "__main__":
     # Import data
     df = pd.read_table('train.txt',
@@ -23,7 +19,7 @@ if __name__ == "__main__":
     x_train, x_test, y_train, y_test = create_train_test_sets(
         df, test_size=0.2, random_state=0, y_column='genre'
     )
-
+ 
     informatioon_retrieval(x_train, x_test, y_train, y_test) # unpreprocessed y's
 
     (vectorizer, x_train) = create_train_data_tfidf(x_train) 
