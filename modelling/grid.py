@@ -1,14 +1,13 @@
 
-# Define hyperparameters for tuning
+# Define hyperparameters for tuning for SVC
 svc_param_grid = {
-    'C': [0.1, 1, 10, 100],
-    'kernel': ['linear', 'poly', 'rbf', 'sigmoid'],
-    'degree': [2, 3, 4],  # Used with 'poly' kernel
-    'gamma': ['scale', 'auto'],
-    'class_weight': [None, 'balanced']
+    'C': [0.1, 1, 10],
+    'kernel': ['linear'], # , 'rbf'],
+    # 'gamma': ['scale', 'auto'],
+    # 'class_weight': [None, 'balanced']
 }
 
-# Define hyperparameters for tuning
+# Define hyperparameters for tuning for RandomForestClassifier
 rf_param_grid = {
     'n_estimators': [100, 200, 300, 400],
     'max_depth': [None, 10, 20, 30, 40],
@@ -18,7 +17,7 @@ rf_param_grid = {
     'max_features': ['auto', 'sqrt', 'log2']
 }
 
-# Define hyperparameters for tuning
+# Define hyperparameters for tuning for MultinomialNB
 mnb_param_grid = {
     'alpha': [0.1, 0.5, 1.0, 2.0, 5.0],
     'fit_prior': [True, False]
