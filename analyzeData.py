@@ -17,8 +17,8 @@ def plotGenreFrequency(data):
 def compareDistrTestOutput(data):
   label_encoder = LabelEncoder()
 
-  df['actual_encoded'] = label_encoder.fit_transform(df['actual'])
-  df['predicted_encoded'] = label_encoder.fit_transform(df['predicted'])
+  data['actual_encoded'] = label_encoder.fit_transform(data['actual'])
+  ddata['predicted_encoded'] = label_encoder.fit_transform(data['predicted'])
 
 
 
@@ -36,12 +36,12 @@ def compareDistrTestOutput(data):
 
   fig, axes = plt.subplots(1, 2, figsize=(14, 6), sharey=True)
 
-  sns.countplot(data=df, x='actual', ax=axes[0], palette='Blues')
+  sns.countplot(data=data, x='actual', ax=axes[0], palette='Blues')
   axes[0].set_title('Actual Distribution', fontsize=16)
   axes[0].set_xlabel('Actual Labels', fontsize=14)
   axes[0].set_ylabel('Count', fontsize=14)
 
-  sns.countplot(data=df, x='predicted', ax=axes[1], palette='Reds')
+  sns.countplot(data=data, x='predicted', ax=axes[1], palette='Reds')
   axes[1].set_title('Predicted Distribution', fontsize=16)
   axes[1].set_xlabel('Predicted Labels', fontsize=14)
   axes[1].set_ylabel('')  # Hide y-label for the second plot
