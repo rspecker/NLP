@@ -57,5 +57,5 @@ if __name__ == '__main__':
                        names=['title', 'from', 'genre', 'director', 'plot'])
   df.to_csv('train.csv')
   plotGenreFrequency(df)
-  df = pd.read_csv('res_IR.csv')
+  df = pd.read_csv('results/information_retrieval.csv')
   compareDistrTestOutput(df)
