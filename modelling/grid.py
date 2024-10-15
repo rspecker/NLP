@@ -26,7 +26,7 @@ mnb_param_grid = {
 }
 
 # Define the models
-models = {
+classifiers = {
     'SVC': (SVC(), svc_param_grid),
     'RandomForest': (RandomForestClassifier(), rf_param_grid),
     'MultinomialNB': (MultinomialNB(), mnb_param_grid)
