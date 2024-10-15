@@ -36,6 +36,8 @@ def save_results_to_file(model_name: str, best_params: dict, best_score: float,
     Save grid search results and model evaluation metrics to a text file.
 
     Args:
+        model_type: Type of model, sentence embeddings, word embeddings,
+            information retrieval, TF-IDF, etc.
         model_name: Name of the model.
         best_params: Best hyperparameters from grid search.
         best_score: Best cross-validation score during grid search.
@@ -46,7 +48,7 @@ def save_results_to_file(model_name: str, best_params: dict, best_score: float,
     Returns:
         None
     """
-    result_file_path = f'results/{model_name}_grid_search_results.txt'
+    result_file_path = f'results/{model_name}/grid_search_results.txt'
     with open(result_file_path, 'w') as result_file:
         result_file.write(f"Model: {model_name}\n")
         result_file.write(f"Best Parameters: {best_params}\n")
@@ -55,12 +57,14 @@ def save_results_to_file(model_name: str, best_params: dict, best_score: float,
         result_file.write(f"Classification Report:\n{classification_rep}\n")
 
 
-def save_confusion_matrix(model_name: str, cm: np.array,
+def save_confusion_matrix(model_type: str, model_name: str, cm: np.array,
                           y_test: pd.Series | np.array):
     """
     Save the confusion matrix as an image file.
 
     Args:
+        model_type: Type of model, sentence embeddings, word embeddings,
+            information retrieval, TF-IDF, etc.
         model_name: Name of the model.
         cm: Confusion matrix from the test data.
         y_test: Test data labels.
@@ -72,5 +76,5 @@ def save_confusion_matrix(model_name: str, cm: np.array,
                                   display_labels=np.unique(y_test))
     disp.plot(cmap=plt.cm.Blues)
     plt.title(f'Confusion Matrix for {model_name}')
-    plt.savefig(f'results/{model_name}_confusion_matrix.png')
+    plt.savefig(f'results/{model_type}/{model_name}/confusion_matrix.png')
     plt.close()
