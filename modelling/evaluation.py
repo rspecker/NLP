@@ -30,7 +30,33 @@ def evaluate_model(best_model: sklearn.base.BaseEstimator,
     return test_accuracy, classification_rep, cm
 
 
-def save_results_to_file(model_name: str, best_params: dict, best_score: float,
+def apply_model_to_unlabeled_data(best_model: sklearn.base.BaseEstimator,
+                                  model_type: str, model_name: str):
+    """
+    Apply the best model to the unlabeled test data and save the predictions
+    to a text file.
+
+    Args:
+        best_model: The trained model to apply to the test data.
+
+    Returns:
+        None
+    """
+    unlabeled_data = pd.read_table(
+        'test_no_labels.txt',
+        names=['title', 'from', 'director', 'plot']
+    )
+    pred = best_model.predict(unlabeled_data["plot"])
+
+    # store the predictions in a results.txt file
+    with open(f'results/{model_type}/{model_name}/results.txt', 'w') as f:
+        f.write("genre\n")
+        for i in range(len(pred)):
+            f.write(f"{pred[i]}\n")
+
+
+def save_results_to_file(model_type: str, model_name: str, best_params: dict,
+                         best_score: float,
                          test_accuracy: float, classification_rep: str):
     """
     Save grid search results and model evaluation metrics to a text file.
@@ -48,7 +74,7 @@ def save_results_to_file(model_name: str, best_params: dict, best_score: float,
     Returns:
         None
     """
-    result_file_path = f'results/{model_name}/grid_search_results.txt'
+    result_file_path = f'results/{model_type}/{model_name}/grid_search_results.txt'
     with open(result_file_path, 'w') as result_file:
         result_file.write(f"Model: {model_name}\n")
         result_file.write(f"Best Parameters: {best_params}\n")
