@@ -30,12 +30,40 @@ def evaluate_model(best_model: sklearn.base.BaseEstimator,
     return test_accuracy, classification_rep, cm
 
 
-def save_results_to_file(model_name: str, best_params: dict, best_score: float,
+def apply_model_to_unlabeled_data(best_model: sklearn.base.BaseEstimator,
+                                  model_type: str, model_name: str):
+    """
+    Apply the best model to the unlabeled test data and save the predictions
+    to a text file.
+
+    Args:
+        best_model: The trained model to apply to the test data.
+
+    Returns:
+        None
+    """
+    unlabeled_data = pd.read_table(
+        'test_no_labels.txt',
+        names=['title', 'from', 'director', 'plot']
+    )
+    pred = best_model.predict(unlabeled_data["plot"])
+
+    # store the predictions in a results.txt file
+    with open(f'results/{model_type}/{model_name}/results.txt', 'w') as f:
+        f.write("genre\n")
+        for i in range(len(pred)):
+            f.write(f"{pred[i]}\n")
+
+
+def save_results_to_file(model_type: str, model_name: str, best_params: dict,
+                         best_score: float,
                          test_accuracy: float, classification_rep: str):
     """
     Save grid search results and model evaluation metrics to a text file.
 
     Args:
+        model_type: Type of model, sentence embeddings, word embeddings,
+            information retrieval, TF-IDF, etc.
         model_name: Name of the model.
         best_params: Best hyperparameters from grid search.
         best_score: Best cross-validation score during grid search.
@@ -46,7 +74,7 @@ def save_results_to_file(model_name: str, best_params: dict, best_score: float,
     Returns:
         None
     """
-    result_file_path = f'results/{model_name}_grid_search_results.txt'
+    result_file_path = f'results/{model_type}/{model_name}/grid_search_results.txt'
     with open(result_file_path, 'w') as result_file:
         result_file.write(f"Model: {model_name}\n")
         result_file.write(f"Best Parameters: {best_params}\n")
@@ -55,12 +83,14 @@ def save_results_to_file(model_name: str, best_params: dict, best_score: float,
         result_file.write(f"Classification Report:\n{classification_rep}\n")
 
 
-def save_confusion_matrix(model_name: str, cm: np.array,
+def save_confusion_matrix(model_type: str, model_name: str, cm: np.array,
                           y_test: pd.Series | np.array):
     """
     Save the confusion matrix as an image file.
 
     Args:
+        model_type: Type of model, sentence embeddings, word embeddings,
+            information retrieval, TF-IDF, etc.
         model_name: Name of the model.
         cm: Confusion matrix from the test data.
         y_test: Test data labels.
@@ -72,5 +102,5 @@ def save_confusion_matrix(model_name: str, cm: np.array,
                                   display_labels=np.unique(y_test))
     disp.plot(cmap=plt.cm.Blues)
     plt.title(f'Confusion Matrix for {model_name}')
-    plt.savefig(f'results/{model_name}_confusion_matrix.png')
+    plt.savefig(f'results/{model_type}/{model_name}/confusion_matrix.png')
     plt.close()
