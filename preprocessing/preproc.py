@@ -3,6 +3,14 @@ from nltk.tokenize import RegexpTokenizer
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 import pandas as pd
+import spacy
+from spacy.cli import download
+
+try:
+  nlp = spacy.load("en_core_web_sm")
+except:
+  download('en_core_web_sm')
+  nlp = spacy.load("en_core_web_sm")
 
 nltk.download('stopwords')
 nltk.download('punkt_tab')
@@ -59,4 +67,18 @@ def create_preprocesssed_dataset(data: pd.DataFrame):
       X_row.extend(preproc(row[column]))
     X.append(X_row)
   return X
+
+def extract_entities(text, special_labels = None):
+  doc = nlp(text)
+  entities = None
+  if special_labels != None:
+    entities = [ent.text for ent in doc.ents if ent.label_ in special_labels]
+  else:
+    entities = [ent.text for ent in doc.ents]
+  return entities
+
+def create_named_entity_column(data):
+  data['persons'] = data['plot'].apply(extract_entities, special_labels=['PERSON'])
+  return data
+
 
