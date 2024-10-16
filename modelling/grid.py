@@ -12,7 +12,7 @@ svc_param_grid = {
 
 # Define hyperparameters for tuning for RandomForestClassifier
 rf_param_grid = {
-    'n_estimators': [10, 50, 100],
+    'n_estimators': [50, 100, 200],
     'max_depth': [10, 20, 30],
     'min_samples_split': [2, 5, 10],
     'min_samples_leaf': [1, 2, 4],
@@ -23,6 +23,7 @@ rf_param_grid = {
 # Define hyperparameters for tuning for MultinomialNB
 mnb_param_grid = {
     'alpha': [0.1, 0.5, 1.0, 2.0, 5.0],
+    'fit_prior': [True, False]
 }
 
 # Define the models
