@@ -17,9 +17,9 @@ def query_vectorizer(data, query):
   queryV = vectorizer.fit(data)
   return queryV.transform(query)
 
-def create_train_data_tfidf(data: pd.DataFrame, vectorizer=None) -> tuple[TfidfVectorizer, ...]:
+def create_train_data_tfidf(data: pd.DataFrame, vectorizer=None, max_features=10000) -> tuple[TfidfVectorizer, ...]:
   if vectorizer == None:
-    vectorizer = TfidfVectorizer(tokenizer=own_tokenizer, lowercase=False, stop_words=None)
+    vectorizer = TfidfVectorizer(tokenizer=own_tokenizer, lowercase=False, stop_words=None, max_features=max_features)
     vectorizer = vectorizer.fit(create_preprocesssed_dataset(data))
     X = vectorizer.transform(create_preprocesssed_dataset(data))
   else:
