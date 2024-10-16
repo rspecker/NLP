@@ -7,8 +7,8 @@ from sklearn.model_selection import GridSearchCV
 
 def perform_grid_search(model: sklearn.base.BaseEstimator, param_grid: dict,
                         model_type: str, model_name: str,
-                        x_train: pd.DataFrame | np.array,
-                        y_train: pd.Series | np.array):
+                        x_train: pd.DataFrame | np.ndarray,
+                        y_train: pd.Series | np.ndarray):
     """
     Perform grid search to find the best hyperparameters for a given model.
 

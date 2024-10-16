@@ -7,8 +7,8 @@ from sklearn.metrics import ConfusionMatrixDisplay, accuracy_score, \
 
 
 def evaluate_model(best_model: sklearn.base.BaseEstimator,
-                   x_test: pd.DataFrame | np.array,
-                   y_test: pd.Series | np.array):
+                   x_test: pd.DataFrame | np.ndarray,
+                   y_test: pd.Series | np.ndarray):
     """
     Evaluate the performance of a trained model on test data.
 
@@ -84,7 +84,7 @@ def save_results_to_file(model_type: str, model_name: str, best_params: dict,
 
 
 def save_confusion_matrix(model_type: str, model_name: str, cm: np.array,
-                          y_test: pd.Series | np.array):
+                          y_test: pd.Series | np.ndarray):
     """
     Save the confusion matrix as an image file.
 
