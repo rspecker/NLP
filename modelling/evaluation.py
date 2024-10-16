@@ -100,9 +100,8 @@ def save_confusion_matrix(model_type: str, model_name: str, cm: np.array,
     """
     disp = ConfusionMatrixDisplay(confusion_matrix=cm,
                                   display_labels=np.unique(y_test))
-    disp.plot(cmap=plt.cm.Blues)
-    disp.plot(xticks_rotation='vertical')
+    disp.plot(cmap=plt.cm.Blues, xticks_rotation='vertical')
 
-    plt.title(f'Confusion Matrix for {model_name}')
+    plt.tight_layout()
     plt.savefig(f'results/{model_type}/{model_name}/confusion_matrix.png')
     plt.close()
