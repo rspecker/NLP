@@ -5,6 +5,7 @@ from nltk.stem import PorterStemmer
 import pandas as pd
 import spacy
 from spacy.cli import download
+import re
 
 try:
   nlp = spacy.load("en_core_web_sm")
@@ -17,6 +18,7 @@ nltk.download('punkt_tab')
 
 
 def tokenize(text):
+  text = re.sub(r'\.([a-zA-Z])', r'\1', text) # Ph.D. -> PhD. | S.H.I.E.L.D -> SHIELD
   tokenizer = RegexpTokenizer(r'[\w\-]+') #hyphen due to sci-fi
   return tokenizer.tokenize(text)
 
@@ -35,9 +37,7 @@ def stemming(tokens):
   return [ps.stem(word = t, to_lowercase=False) for t in tokens]
 
 def preproc(text, lower=True, stopwords=True, lang='english', stemm=True):
-  # print(text)
   tokens = tokenize(text)
-  # print(tokens)
   if lower:
     tokens = to_lower(tokens)
   if stopwords:
@@ -61,9 +61,7 @@ def create_preprocesssed_dataset(data: pd.DataFrame):
   X = []
   for row in data.values.tolist():
     X_row = []
-    # print(row)
     for column in range(column_nr):
-      # print(row[column])
       X_row.extend(preproc(row[column]))
     X.append(X_row)
   return X

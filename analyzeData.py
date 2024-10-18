@@ -18,6 +18,10 @@ def plot_genre_frequency(data):
 
 def plot_plot_length_distr(data):
   data['length_plot'] = data['plot'].str.len()
+  data['length_plot_words'] = data['plot'].str.count(' ') + 1
+
+  print(data['length_plot_words'].mean())
+  exit()
 
   data['length_plot'].plot.kde()
   plt.xlabel('length')
