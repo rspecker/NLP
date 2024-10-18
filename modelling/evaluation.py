@@ -32,6 +32,7 @@ def evaluate_model(best_model: sklearn.base.BaseEstimator,
 
 
 def apply_model_to_unlabeled_data(best_model: sklearn.base.BaseEstimator,
+                                  df_unlabeled: pd.DataFrame,
                                   model_type: str, model_name: str):
     """
     Apply the best model to the unlabeled test data and save the predictions
@@ -43,12 +44,7 @@ def apply_model_to_unlabeled_data(best_model: sklearn.base.BaseEstimator,
     Returns:
         None
     """
-    unlabeled_data = pd.read_table(
-        'test_no_labels.txt',
-        names=['title', 'from', 'director', 'plot']
-    )
-    pred = best_model.predict(unlabeled_data["plot"])
-
+    pred = best_model.predict(df_unlabeled)
     # store the predictions in a results.txt file
     with open(f'results/{model_type}/{model_name}/results.txt', 'w') as f:
         f.write("genre\n")
