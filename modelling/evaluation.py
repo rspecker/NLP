@@ -18,6 +18,7 @@ def evaluate_model(best_model: sklearn.base.BaseEstimator,
         y_test: Test data labels.
 
     Returns:
+        y_pred: Predictions of the model on the test data.
         test_accuracy: Accuracy of the model on the test data.
         classification_rep: Classification report with precision,
             recall, and F1-score.
@@ -27,7 +28,7 @@ def evaluate_model(best_model: sklearn.base.BaseEstimator,
     test_accuracy = accuracy_score(y_test, y_pred)
     classification_rep = classification_report(y_test, y_pred)
     cm = confusion_matrix(y_test, y_pred)
-    return test_accuracy, classification_rep, cm
+    return y_pred, test_accuracy, classification_rep, cm
 
 
 def apply_model_to_unlabeled_data(best_model: sklearn.base.BaseEstimator,
@@ -83,6 +84,29 @@ def save_results_to_file(model_type: str, model_name: str, best_params: dict,
         result_file.write(f"Classification Report:\n{classification_rep}\n")
 
 
+def save_test_data_with_predictions(X_test, y_test, y_pred, model_type, model_name):
+    """
+    Save the test data along with the actual and predicted labels to a CSV file.
+
+    Args:
+        X_test (pd.DataFrame or np.array): Test data features.
+        y_test (pd.Series or np.array): Actual labels for the test data.
+        y_pred (np.array): Predicted labels by the model.
+        model_name (str): Name of the model to use for saving the file.
+
+    Returns:
+        None
+    """
+    # Add the actual and predicted labels as columns
+    test_data_with_preds = X_test.copy()
+    test_data_with_preds['Actual'] = y_test
+    test_data_with_preds['Predicted'] = y_pred
+
+    # Save the DataFrame to a CSV file
+    output_file = f'results/{model_type}/{model_name}/test_data_with_predictions.csv'
+    test_data_with_preds.to_csv(output_file, index=False)
+
+
 def save_confusion_matrix(model_type: str, model_name: str, cm: np.array,
                           y_test: pd.Series | np.ndarray):
     """
@@ -105,3 +129,4 @@ def save_confusion_matrix(model_type: str, model_name: str, cm: np.array,
     plt.tight_layout()
     plt.savefig(f'results/{model_type}/{model_name}/confusion_matrix.png')
     plt.close()
+
