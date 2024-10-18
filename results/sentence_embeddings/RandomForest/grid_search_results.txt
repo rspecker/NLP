@@ -1,21 +1,21 @@
 Model: RandomForest
 Best Parameters: {'bootstrap': False, 'max_depth': 20, 'max_features': 'sqrt', 'min_samples_leaf': 1, 'min_samples_split': 2, 'n_estimators': 200}
-Best Cross-Validation Score: 0.5476
-Test Accuracy: 0.5401
+Best Cross-Validation Score: 0.5493
+Test Accuracy: 0.5562
 Classification Report:
               precision    recall  f1-score   support
 
-      action       0.58      0.52      0.55       212
-   animation       0.88      0.52      0.65       107
-      comedy       0.46      0.33      0.39       239
-       crime       0.67      0.11      0.19       108
-       drama       0.40      0.69      0.50       335
-      horror       0.67      0.69      0.68       222
-     romance       0.56      0.49      0.53       177
-      sci-fi       0.75      0.07      0.13        43
-     western       0.72      0.81      0.76       166
+      action       0.60      0.53      0.56       212
+   animation       0.92      0.53      0.67       107
+      comedy       0.49      0.36      0.42       239
+       crime       0.68      0.12      0.20       108
+       drama       0.41      0.71      0.52       335
+      horror       0.65      0.70      0.67       222
+     romance       0.57      0.50      0.54       177
+      sci-fi       1.00      0.12      0.21        43
+     western       0.74      0.83      0.78       166
 
-    accuracy                           0.54      1609
-   macro avg       0.63      0.47      0.49      1609
-weighted avg       0.58      0.54      0.52      1609
+    accuracy                           0.56      1609
+   macro avg       0.67      0.49      0.51      1609
+weighted avg       0.60      0.56      0.54      1609
 
